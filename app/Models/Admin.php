@@ -4,15 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Admin extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
+class Admin extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
     protected $fillable = [
         'name',
         'email',
         'password',
         'role'
     ];
+    protected $guard = 'admin';
     protected $hidden = ['updated_at', 'created_at', 'password', 'email_verified_at', 'remember_token'];
 }

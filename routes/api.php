@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +20,14 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get("/admin", [AdministratorController::class, 'index'])->name('get-admin');
-Route::group(['prefix' => 'user'], function () {
+Route::post('admin/auth/login', [AuthController::class, 'AdminLogin']);
+
+Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum', 'abilities:admin']], function () {
     Route::post('/', [AdministratorController::class, 'submitUser']);
     Route::get('/show-request', [AdministratorController::class, 'showRequests']);
     Route::post('update/{User:id}', [AdministratorController::class, 'submitUserUpdate']);
     Route::get('/approve-request/{userEdit:id}', [AdministratorController::class, 'approveRequest']);
-  });
+    Route::get('/admin/logout', [AuthController::class, 'adminLogOut']);
+});
+
+
