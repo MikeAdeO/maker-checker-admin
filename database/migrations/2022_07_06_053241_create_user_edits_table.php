@@ -15,7 +15,7 @@ class CreateUserEditsTable extends Migration
     {
         Schema::create('user_edits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable();
             $table->morphs('editable');
             $table->unsignedBigInteger('maker_id')->nullable();
             $table->unsignedBigInteger('checker_id')->nullable();

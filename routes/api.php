@@ -20,3 +20,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get("/admin", [AdministratorController::class, 'index'])->name('get-admin');
+Route::group(['prefix' => 'user'], function () {
+    Route::post('/', [AdministratorController::class, 'submitUser']);
+    Route::get('/show-request', [AdministratorController::class, 'showRequests']);
+    Route::post('update/{User:id}', [AdministratorController::class, 'submitUserUpdate']);
+    Route::get('/approve-request/{userEdit:id}', [AdministratorController::class, 'approveRequest']);
+  });

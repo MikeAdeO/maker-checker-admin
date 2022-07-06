@@ -14,5 +14,5 @@ class Admin extends Model
         'password',
         'role'
     ];
-
+    protected $hidden = ['updated_at', 'created_at', 'password', 'email_verified_at', 'remember_token'];
 }

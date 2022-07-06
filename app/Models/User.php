@@ -29,10 +29,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['updated_at', 'created_at', 'password', 'email_verified_at', 'remember_token'];
 
     /**
      * The attributes that should be cast.
@@ -43,7 +40,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function edits(){
+    public function edits()
+    {
         return $this->morphOne(UserDraft::class, "editable");
+    }
+
+    public function realUser()
+    {
+        return $this->hasOne(UserEdit::class, 'editable_id', 'id');
     }
 }
