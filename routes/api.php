@@ -27,7 +27,9 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum', 'abilities:ad
     Route::get('/show-request', [AdministratorController::class, 'showRequests']);
     Route::post('update/{User:id}', [AdministratorController::class, 'submitUserUpdate']);
     Route::get('/approve-request/{userEdit:id}', [AdministratorController::class, 'approveRequest']);
+    Route::delete('/decline-request/{userEdit:id}', [AdministratorController::class, 'declineRequest']);
     Route::get('/admin/logout', [AuthController::class, 'adminLogOut']);
+
 });
 
 

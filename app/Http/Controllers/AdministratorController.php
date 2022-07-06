@@ -224,4 +224,16 @@ class AdministratorController extends Controller
     {
         UserDraft::destroy($id);
     }
+
+    public function declineRequest($id){
+        $data = UserEdit::where('id', $id)->where('status', 'pending')->with('editable', 'maker')->first();
+
+
+        $data->delete();
+
+        return response()->json([
+            "message" => "deleted successfully"
+
+        ], 200);
+    }
 }
