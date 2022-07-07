@@ -16,20 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
-Route::post('admin/auth/login', [AuthController::class, 'AdminLogin']);
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::post('login', [AuthController::class, 'AdminLogin'])->name('login');
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum', 'abilities:admin']], function () {
-    Route::post('/', [AdministratorController::class, 'submitUser']);
-    Route::get('/show-request', [AdministratorController::class, 'showRequests']);
-    Route::post('update/{User:id}', [AdministratorController::class, 'submitUserUpdate']);
-    Route::get('/approve-request/{userEdit:id}', [AdministratorController::class, 'approveRequest']);
-    Route::delete('/decline-request/{userEdit:id}', [AdministratorController::class, 'declineRequest']);
-    Route::get('/admin/logout', [AuthController::class, 'adminLogOut']);
 
+    Route::prefix('user')->name('user.')->middleware(['auth:sanctum', 'abilities:admin'])->group(function () {
+        Route::post('/', [AdministratorController::class, 'submitUser'])->name('draft');
+        Route::get('/show-request', [AdministratorController::class, 'showRequests'])->name('pending');
+        Route::get('/approve/{userEdit:id}', [AdministratorController::class, 'approveRequest'])->name('approve');
+        Route::post('update/{User:id}', [AdministratorController::class, 'submitUserUpdate'])->name('update');
+        Route::delete('/decline/{userEdit:id}', [AdministratorController::class, 'declineRequest'])->name('decline');
+        Route::get('/logout', [AuthController::class, 'adminLogOut'])->name('logout');
+    });
 });
-
-
