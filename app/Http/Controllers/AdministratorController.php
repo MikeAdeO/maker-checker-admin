@@ -50,9 +50,13 @@ class AdministratorController extends Controller
                 'request_type' => $request_type
             ]);
 
+             // send Email
+            $userDraft->sendAdminNotification();
+
             DB::commit();
+
             $data = $userDraft->fresh('userEdits.maker', 'userEdits.editable');
-            // send Email
+
 
             return response()->json($data, 200);
         } catch (\Throwable $th) {
@@ -225,7 +229,8 @@ class AdministratorController extends Controller
         UserDraft::destroy($id);
     }
 
-    public function declineRequest($id){
+    public function declineRequest($id)
+    {
         $data = UserEdit::where('id', $id)->where('status', 'pending')->with('editable', 'maker')->first();
 
 
