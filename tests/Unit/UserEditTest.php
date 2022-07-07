@@ -6,9 +6,6 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\UserDraft;
 use App\Models\UserEdit;
-// use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Facades\Schema;
-// use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -27,11 +27,28 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
+    public function createCheckerAdmin($args = [])
+    {
+        return  Admin::create([
+            'name' => 'testor Checker',
+            'email' => "odogamu@ydghbv.com",
+            'role' => 'checker',
+            'password' => bcrypt('secret1234')
+        ]);
+    }
+
 
     public function authAdmin()
     {
         $admin = $this->createAdmin();
         Sanctum::actingAs($admin, ['*']);
         return $admin;
+    }
+
+    public function authCheckerAdmin()
+    {
+        $checker = $this->createCheckerAdmin();
+        Sanctum::actingAs($checker, ['*']);
+        return  $checker;
     }
 }

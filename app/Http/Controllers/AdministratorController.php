@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AdministratorController extends Controller
 {
+    
     public function submitUser(Request $request)
     {
         // validation
@@ -50,7 +51,7 @@ class AdministratorController extends Controller
                 'request_type' => $request_type
             ]);
 
-             // send Email
+            // send Email
             $userDraft->sendAdminNotification();
 
             DB::commit();
@@ -68,6 +69,8 @@ class AdministratorController extends Controller
 
     public function showRequests()
     {
+
+
         $data = UserEdit::whereHasMorph(
             'editable',
             [User::class, UserDraft::class],
