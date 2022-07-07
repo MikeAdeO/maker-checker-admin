@@ -22,10 +22,11 @@ abstract class TestCase extends BaseTestCase
         return  Admin::create([
             'name' => 'test',
             'email' => 'test@gmail.com',
-            'role' => "checker",
+            'role' => "maker",
             'password' => bcrypt('secret1234')
         ]);
     }
+
 
     public function authAdmin()
     {

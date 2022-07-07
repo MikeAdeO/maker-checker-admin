@@ -27,11 +27,6 @@ class UserEditTest extends TestCase
         $this->userDraft = UserDraft::factory()->create();
         $this->userEdit = UserEdit::factory()->create();
     }
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
 
 
     /** @test */
@@ -61,4 +56,10 @@ class UserEditTest extends TestCase
         $this->assertDatabaseMissing('user_edits', ['id' => $this->userEdit->id]);
     }
 
+    /** @test */
+    public function admin_can_approve_pending_request()
+    {
+        $response = $this->getJson(route('admin.user.approve', $this->userEdit->id));
+        $this->assertEquals(1, count($response->json()));
+    }
 }

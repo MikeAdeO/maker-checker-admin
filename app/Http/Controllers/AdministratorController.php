@@ -45,7 +45,7 @@ class AdministratorController extends Controller
 
             $userDraft->userEdits()->create([
                 'user_id' => $user_id,
-                'maker_id' => 1,
+                'maker_id' => request()->user()->id,
                 'editable_type' => UserDraft::class,
                 'request_type' => $request_type
             ]);
@@ -156,7 +156,7 @@ class AdministratorController extends Controller
                 'maker_id' =>  $data->maker->id,
                 'editable_type' => User::class,
                 'status' => 'success',
-                'checker_id' => 2  #Auth Admin
+                'checker_id' => request()->user()->id
             ]);
 
             DB::commit();
@@ -197,7 +197,7 @@ class AdministratorController extends Controller
                 'maker_id' => $data->maker->id,
                 'editable_type' => User::class,
                 'status' => 'success',
-                'checker_id' => 2  #Auth Admin
+                'checker_id' => request()->user()->id
             ]);
 
             DB::commit();

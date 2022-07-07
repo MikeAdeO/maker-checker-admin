@@ -1,5 +1,5 @@
 @component('mail::message')
-# Pending $request
+# Pending request
 
 There is a pending request bla bla
 
